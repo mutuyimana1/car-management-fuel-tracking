@@ -59,7 +59,7 @@ mvn exec:java -Dexec.mainClass="com.fueltracker.drivewise.cli.DrivewiseCLI" -Dex
    Body: {"liters": 40, "price": 52.5, "odometer": 45000}
    ```
 
-4. **Get Fuel Statistics**
+4. **Get Fuel Statistics** 
    ```
    GET /api/cars/{id}/fuel/stats
    Response: {"totalFuel": 120.0, "totalCost": 155.00, "averageConsumption": 6.4}
