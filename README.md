@@ -13,7 +13,7 @@ A Spring Boot application with REST API, Servlet integration, and CLI client for
 ## Cloning Application
 ```bash
 git clone https://github.com/mutuyimana1/car-management-fuel-tracking.git
-cd drivewise
+cd car-management-fuel-tracking
 ```
 
 ## Running the Application
