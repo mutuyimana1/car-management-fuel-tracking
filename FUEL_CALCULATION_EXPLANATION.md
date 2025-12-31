@@ -122,3 +122,4 @@ To get **6.4 L/100km** with **120 L total fuel**:
 - ⚠️ The **last entry's fuel** is not used in calculation (it's for future travel)
 - ✅ Consumption is rounded to **1 decimal place**
 
+

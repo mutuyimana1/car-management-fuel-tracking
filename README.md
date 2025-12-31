@@ -10,6 +10,12 @@ A Spring Boot application with REST API, Servlet integration, and CLI client for
 - **Servlet**: Manual Java Servlet for fuel statistics
 - **CLI Client**: Standalone Java application using HttpClient
 
+## Cloning Application
+```bash
+git clone https://github.com/mutuyimana1/car-management-fuel-tracking.git
+cd drivewise
+```
+
 ## Running the Application
 
 ### Start the Backend Server
@@ -51,15 +57,20 @@ mvn exec:java -Dexec.mainClass="com.fueltracker.drivewise.cli.DrivewiseCLI" -Dex
    ```
    GET /api/cars
    ```
+3. **List one Cars**
 
-3. **Add Fuel Entry**
+   ```
+   GET /api/cars/{id}
+   ```
+
+4. **Add Fuel Entry**
 
    ```
    POST /api/cars/{id}/fuel
    Body: {"liters": 40, "price": 52.5, "odometer": 45000}
    ```
 
-4. **Get Fuel Statistics** 
+5. **Get Fuel Statistics** 
    ```
    GET /api/cars/{id}/fuel/stats
    Response: {"totalFuel": 120.0, "totalCost": 155.00, "averageConsumption": 6.4}
@@ -67,7 +78,7 @@ mvn exec:java -Dexec.mainClass="com.fueltracker.drivewise.cli.DrivewiseCLI" -Dex
 
 ### Servlet Endpoint
 
-5. **Fuel Stats via Servlet**
+6. **Fuel Stats via Servlet**
    ```
    GET /servlet/fuel-stats?carId={id}
    ```

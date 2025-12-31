@@ -72,7 +72,7 @@ public class FuelService {
                 .sum();
 
         // Calculate average consumption: L/100km
-        // Need at least 2 entries with different odometer readings to calculate distance
+        // Need at least 2 entries to calculate distance
         double averageConsumption = 0.0;
         if (entries.size() >= 2) {
             // Sort by odometer to get chronological order
@@ -81,28 +81,21 @@ public class FuelService {
 
             int totalDistance = 0;
             double totalFuelForDistance = 0;
-            int validSegments = 0;
 
             for (int i = 1; i < sortedEntries.size(); i++) {
                 FuelEntry prev = sortedEntries.get(i - 1);
                 FuelEntry curr = sortedEntries.get(i);
 
                 int distance = curr.getOdometer() - prev.getOdometer();
-                // Only count segments with positive distance (odometer increasing)
                 if (distance > 0) {
                     totalDistance += distance;
-                    // The fuel added at the previous stop was used to travel this distance
                     totalFuelForDistance += prev.getLiters();
-                    validSegments++;
                 }
             }
 
-            // Calculate average consumption: (total fuel consumed / total distance) * 100
-            // This gives L/100km
-            if (totalDistance > 0 && validSegments > 0) {
+            if (totalDistance > 0) {
+                // Consumption = (total fuel / total distance) * 100
                 averageConsumption = (totalFuelForDistance / totalDistance) * 100;
-                // Round to 1 decimal place
-                averageConsumption = Math.round(averageConsumption * 10.0) / 10.0;
             }
         }
 

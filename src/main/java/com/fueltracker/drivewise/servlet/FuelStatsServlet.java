@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class FuelStatsServlet extends HttpServlet {
-    
+
     private CarService carService;
     private FuelService fuelService;
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -43,16 +43,16 @@ public class FuelStatsServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        
+
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        
+
         try {
             // Ensure services are initialized (fallback to ApplicationContext if needed)
             ensureServicesInitialized(request);
-            
+
             // Check if services are initialized
             if (carService == null || fuelService == null) {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -60,10 +60,10 @@ public class FuelStatsServlet extends HttpServlet {
                 out.flush();
                 return;
             }
-            
+
             // Manually parse carId from query parameters
             String carIdParam = request.getParameter("carId");
-            
+
             if (carIdParam == null || carIdParam.isEmpty()) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 out.print("{\"error\":\"carId parameter is required\"}");
@@ -72,7 +72,7 @@ public class FuelStatsServlet extends HttpServlet {
             }
 
             Long carId = Long.parseLong(carIdParam);
-            
+
             // Check if car exists
             if (!carService.carExists(carId)) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -80,18 +80,18 @@ public class FuelStatsServlet extends HttpServlet {
                 out.flush();
                 return;
             }
-            
+
             // Get fuel stats using the same service layer
             FuelStats stats = fuelService.calculateStats(carId);
-            
+
             // Set status code explicitly
             response.setStatus(HttpServletResponse.SC_OK);
-            
+
             // Write JSON response
             String json = objectMapper.writeValueAsString(stats);
             out.print(json);
             out.flush();
-            
+
         } catch (NumberFormatException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             out.print("{\"error\":\"Invalid carId format\"}");
@@ -103,4 +103,3 @@ public class FuelStatsServlet extends HttpServlet {
         }
     }
 }
-
